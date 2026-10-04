@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+import requests
 
 st.title('Uber pickups in NYC by fern')
 
@@ -61,4 +62,12 @@ hour_to_filter = st.session_state.hour_slider
 filtered_data = data[data[DATE_COLUMN].dt.hour==hour_to_filter]
 st.subheader(f'Map of all pickups at {hour_to_filter}:00')
 st.map(filtered_data)
+
+@st.cache_data
+def api_call():
+    response = requests.get('https://jsonplaceholder.typicode.com/posts/1')
+    return response.json()
+
+ans = api_call()
+st.write(ans)
 
