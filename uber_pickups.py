@@ -77,7 +77,8 @@ st.subheader("Transformers")
 @st.cache_resource  # 👈 Add the caching decorator
 def load_model():
     #return pipeline("sentiment-analysis")
-    return pipeline("text-classification", model="tabularisai/multilingual-sentiment-analysis")
+    #return pipeline("text-classification", model="tabularisai/multilingual-sentiment-analysis")
+    return pipeline("text-classification", model="FlukeTJ/distilbert-base-thai-sentiment")
 
 model = load_model()
 
