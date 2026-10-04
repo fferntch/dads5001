@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import requests
+from transformers import pipeline
 
 st.title('Uber pickups in NYC by fern')
 
@@ -70,4 +71,19 @@ def api_call():
 
 ans = api_call()
 st.write(ans)
+
+st.subheader("Transformers")
+
+@st.cache_resource  # 👈 Add the caching decorator
+def load_model():
+    #return pipeline("sentiment-analysis")
+    return pipeline("text-classification", model="tabularisai/multilingual-sentiment-analysis")
+
+model = load_model()
+
+query = st.text_input("Your query", value="I love Streamlit! 🎈")
+if query:
+    result = model(query)[0]  # 👈 Classify the query text
+    st.write(result)
+    #st.write(result['label'])
 
